@@ -1,0 +1,103 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    overflow-x:auto; /* Ocultar la barra de desplazamiento horizontal */
+
+}
+
+.title {
+    margin-bottom: 10px;
+    
+}
+.buttonPurple {
+    margin-right: 240px;
+    font-size: 18px;
+    font-weight:500;
+    
+}
+.buttonPurple button {
+    vertical-align: middle;
+    color: #5230ff;
+    background-color: transparent;
+    border: none;
+}
+
+.buttonPurple button:hover {
+    background-color: rgba(82, 48, 255, 0.1);
+}
+
+.form {
+    width: 100%;
+    max-width: 400px;
+    text-align: center;
+}
+
+h1 {
+    font-size: 50px;
+    font-weight: bold;
+}
+
+h1 img {
+    margin-right: 10px;
+    vertical-align: middle;
+}
+
+.mat-form-field-width {
+    width: 100%;
+}
+
+.mat-form-field-width button {
+    color: #5230ff;
+    background-color: transparent;
+    border: none;
+}
+
+.mat-form-field-width button:hover {
+    background-color: rgba(82, 48, 255, 0.1);
+}
+
+.register-button {
+    width: 100%; /* Hace que el botón tenga el mismo ancho que el formulario */
+    height: 45px;
+    background-color: #5230ff; /* Cambia el color de fondo del botón */
+    color: white !important; /* Cambia el color del texto del botón */
+    margin-bottom: 5px;
+}
+
+.comeback-button {
+    width: 100%;
+    height: 45px;
+    background-color: white;
+    color: #5230ff !important;
+    margin-bottom: 5px;
+    border: 1px solid #5230ff;
+}
+
+.register-button,
+.comeback-button {
+    width: 100%; /* Hace que los botones tengan el mismo ancho que el formulario */
+    height: 45px;
+    margin-bottom: 10px; /* Aumenta el espacio entre los botones */
+}
+@media screen and (max-width: 600px) {
+    .form {
+        max-width: 90%; /* Reducir el ancho máximo del formulario en dispositivos móviles */
+    }
+    .buttonPurple {
+        margin-right: 200px;
+    }
+}
+
+
+
+.bold-label {
+    font-weight: bold;
+    color: #d9dcc1
+}
+
+.error-message {
+    color: red !important;
+}

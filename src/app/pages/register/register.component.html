@@ -1,0 +1,61 @@
+<div class="container">
+    <h1 class="title">
+        <img src="../../../assets/WorkspaceLogo.png" width="55" height="55">workspace
+    </h1>
+    <h3 class="buttonPurple">
+        <button mat-icon-button color="#5230ff" aria-label="Login page">
+            <mat-icon>arrow_back</mat-icon>
+        </button>
+        Crear cuenta
+    </h3>
+    <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="form">
+
+        <mat-form-field appearance="outline" class="mat-form-field-width">
+            <mat-label>Nombre</mat-label>
+            <input matInput id="name" formControlName="name">
+        </mat-form-field>
+        <span *ngIf="isValidField('mag_name')" class="form-text text-danger">
+            This field is required
+        </span>
+
+        <mat-form-field appearance="outline" class="mat-form-field-width">
+            <mat-label>Apellido</mat-label>
+            <input matInput id="lastName" formControlName="lastName">
+        </mat-form-field>
+        <span *ngIf="isValidField('mag_name')" class="form-text text-danger">
+            This field is required
+        </span>
+
+        <mat-form-field appearance="outline" class="mat-form-field-width">
+            <mat-label>Email</mat-label>
+            <input matInput id="email" formControlName="email">
+        </mat-form-field>
+        <span *ngIf="isValidField('mag_name')" class="form-text text-danger">
+            This field is required
+        </span>
+        
+        <mat-form-field appearance="outline" class="mat-form-field-width">
+            <mat-label>Contraseña</mat-label>
+            <input matInput [type]="hidePassword ? 'password' : 'text'" matInput id="password" formControlName="password">
+            <button mat-icon-button matSuffix (click)="hidePassword = !hidePassword" [attr.aria-label]="'Hide password'"
+                [attr.aria-pressed]="hidePassword">
+                <mat-icon>{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+            </button>
+        </mat-form-field>
+        <span *ngIf="isValidField('mag_name')" class="form-text text-danger">
+            This field is required
+        </span>
+        
+        <mat-form-field appearance="outline" class="mat-form-field-width">
+            <mat-label>Confirmar contraseña</mat-label>
+            <input matInput [type]="hidePassword ? 'password' : 'text'" id="repeatPassword" formControlName="repeatPassword">
+        </mat-form-field>
+        <span *ngIf="isValidField('mag_name')" class="form-text text-danger">
+            This field is required
+        </span>
+        
+        <button mat-button type="submit" class="register-button">Crear usuario</button>
+
+        <button mat-button class="comeback-button" >Volver</button>
+    </form>
+</div>
