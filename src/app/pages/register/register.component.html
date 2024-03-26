@@ -3,7 +3,7 @@
         <img src="../../../assets/WorkspaceLogo.png" width="55" height="55">workspace
     </h1>
     <h3 class="buttonPurple">
-        <button mat-icon-button color="#5230ff" aria-label="Login page">
+        <button mat-icon-button color="#5230ff" aria-label="Login page" (click)="redirectToLoginPage()" >
             <mat-icon>arrow_back</mat-icon>
         </button>
         Crear cuenta
@@ -14,24 +14,25 @@
             <mat-label>Nombre</mat-label>
             <input matInput id="name" formControlName="name">
         </mat-form-field>
-        <span *ngIf="isValidField('mag_name')" class="form-text text-danger">
-            This field is required
+        <span *ngIf="isValidField('name')" class="form-text text-danger">
+            {{isValidName('name')}}
+
         </span>
 
         <mat-form-field appearance="outline" class="mat-form-field-width">
             <mat-label>Apellido</mat-label>
             <input matInput id="lastName" formControlName="lastName">
         </mat-form-field>
-        <span *ngIf="isValidField('mag_name')" class="form-text text-danger">
-            This field is required
+        <span *ngIf="isValidField('lastName')" class="form-text text-danger">
+            {{isValidName('lastName')}}
         </span>
 
         <mat-form-field appearance="outline" class="mat-form-field-width">
             <mat-label>Email</mat-label>
             <input matInput id="email" formControlName="email">
         </mat-form-field>
-        <span *ngIf="isValidField('mag_name')" class="form-text text-danger">
-            This field is required
+        <span *ngIf="isValidField('email')" class="form-text text-danger">
+            {{isValidName('email')}}
         </span>
         
         <mat-form-field appearance="outline" class="mat-form-field-width">
@@ -42,19 +43,19 @@
                 <mat-icon>{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
             </button>
         </mat-form-field>
-        <span *ngIf="isValidField('mag_name')" class="form-text text-danger">
-            This field is required
+        <span *ngIf="isValidField('password')" class="form-text text-danger">
+            {{isValidName('password')}}
         </span>
         
         <mat-form-field appearance="outline" class="mat-form-field-width">
             <mat-label>Confirmar contraseña</mat-label>
             <input matInput [type]="hidePassword ? 'password' : 'text'" id="repeatPassword" formControlName="repeatPassword">
         </mat-form-field>
-        <span *ngIf="isValidField('mag_name')" class="form-text text-danger">
-            This field is required
+        <span *ngIf="isValidField('repeatPassword')" class="form-text text-danger">
+            {{isValidName('repeatPassword')}}
         </span>
         
-        <button mat-button type="submit" class="register-button">Crear usuario</button>
+        <button mat-button type="submit" (click)="showErrorsInConsole()" class="register-button">Crear usuario</button>
 
         <button mat-button class="comeback-button" >Volver</button>
     </form>

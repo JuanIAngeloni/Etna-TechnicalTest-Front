@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { FormGroup, ValidationErrors } from '@angular/forms';
 
 @Injectable({
   providedIn: 'root'
@@ -7,42 +7,57 @@ import { FormGroup } from '@angular/forms';
 export class ValidatorService {
 
   constructor() { }
+  public passwordPatternValidation: string = '^(?=.*\\d)(?=.*[A-Z])(?=.*[!@#$%^&*()_+{}[:;<.,>?`=_|"]).{8,}$';
+
 
   public isValidField(form: FormGroup, field: string): boolean {
     const control = form.controls[field];
-    
+    // console.log(control.getError)
     if (control && control.errors && control.touched) {
-        return true;
+      return true;
     } else {
-        return false;
+      return false;
     }
-}
-
-
-  public repeatPasswordValidation(password : string, confirmPassword: string){
-return null;
-
   }
+
+  public repeatPasswordValidation(password: string, repeatPassword: string): any {
+    return (formGroup: FormGroup): ValidationErrors | null => {
+      let firstPassword = formGroup.get(password)?.value;
+      let repeatedPassword = formGroup.get(repeatPassword)?.value;
+  
+      if (firstPassword !== repeatedPassword) {
+        formGroup.get(repeatPassword)?.setErrors({ equalPasswordsFields: true });
+        return { equalPasswordsFields: true };
+      } else {
+        formGroup.get(repeatPassword)?.setErrors(null);
+        return null;
+      }
+    };
+  }
+  
+
+
+
 
 
   getFieldError(form: FormGroup, field: string): string | null {
-
+    // console.log(7,form.controls[field])
     if (!form.controls[field]) return null;
     const errors = form.controls[field].errors || {};
+    // console.log(3, errors)
     for (const key of Object.keys(errors)) {
       switch (key) {
         case 'required':
-          return 'This field is required';
+          return 'Este campo es requerido';
+        case 'maxlength':
+          return 'El maximo de caracteres posible es 50';
+        case 'email':
+          return 'Este campo debe tener un formato de email';
         case 'pattern':
-          return 'The code format is incorrect';
-        case 'minor':
-          return 'The age cannot be less than 16 years old.';
-        case 'houseAndAALNNotEqual':
-          return 'The house in the AALN and the selected must be equal';
-        case 'aalnSchoolError':
-          return 'The selected house must belong to the School in the AALN';
-        case 'invalidAALN':
-          return 'For the OT house, the school initials should be OT';
+          return 'minimo 8 caracteres, 1 dígito numérico, 1 letra mayuscula y 1 carácter no alfanumérico (!, . -, etc.)';
+        case 'equalPasswordsFields':
+          return 'Las contraseñas ingresadas no coinciden';
+
       }
     }
     return null;

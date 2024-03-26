@@ -91,13 +91,7 @@ h1 img {
     }
 }
 
-
-
-.bold-label {
-    font-weight: bold;
-    color: #d9dcc1
-}
-
-.error-message {
-    color: red !important;
+.text-danger{
+    color:red!important;
+    font-weight: 300;
 }
