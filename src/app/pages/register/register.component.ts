@@ -56,7 +56,6 @@ export class RegisterComponent {
     this.showErrorMsg = false;
 
     if (this.registerForm.valid) {
-      console.log("UserREgistrado")
       const formValues = this.registerForm.value;
       delete formValues.repeatPassword;
 
@@ -70,6 +69,11 @@ export class RegisterComponent {
         let postNewUser = await this.userService.postUserRegistration(this.userToRegister);
         if (postNewUser.ok) {
           console.log("UserRegistererd")
+          localStorage.setItem('email', this.userToRegister.email);
+          localStorage.setItem('password', this.userToRegister.password);
+          localStorage.setItem('registerFlag', 'true');
+          // Redirigir al usuario a la página de login
+          this.redirectToLoginPage();
 
         } else {
                   
@@ -84,7 +88,6 @@ export class RegisterComponent {
 
 //borrar borrar borrar
   showErrorsInConsole(){
-      // Verificar cada control del formulario
       Object.keys(this.registerForm.controls).forEach(field => {
         const control = this.registerForm.get(field);
         if (control && control.invalid) {
