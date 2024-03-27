@@ -1,0 +1,15 @@
+.dialog{
+        border-radius: 8px; /* Radio de borde para suavizar las esquinas */
+}
+
+
+.centered-button {
+    display: flex;
+    justify-content: center;
+}
+
+/* Estilos para el color del botón */
+.custom-color-button {
+    background-color: #5230ff !important;
+    color: white !important;
+}

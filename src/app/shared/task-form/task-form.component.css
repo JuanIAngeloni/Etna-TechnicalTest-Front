@@ -1,0 +1,35 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.mat-form-field-width {
+    width: 100%;
+}
+
+.submit-button {
+    width: 100%; 
+    height: 45px;
+    background-color: #5230ff; 
+    color: white !important;
+    margin-bottom: 5px;
+}
+
+.register-button,
+.comeback-button {
+    width: 100%;
+    height: 45px;
+    margin-bottom: 10px; 
+}
+
+@media screen and (max-width: 600px) {
+
+}
+.text-danger {
+    color: red !important;
+    font-weight: 300;
+}
+

@@ -1,0 +1,11 @@
+<div class="container">
+    <h3 class="buttonPurple">
+        <button mat-icon-button color="#5230ff" aria-label="Login page" (click)="redirectToHomePage()">
+            <mat-icon>arrow_back</mat-icon>
+        </button>
+        Nueva Tarea
+    </h3>
+    <div class="form">
+        <app-task-form [isCreatorTask]="isCreatorTask"></app-task-form>
+    </div>
+</div>

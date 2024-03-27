@@ -14,9 +14,9 @@
             <mat-label>Nombre</mat-label>
             <input matInput id="name" formControlName="name">
         </mat-form-field>
+        
         <span *ngIf="isValidField('name')" class="form-text text-danger">
             {{isValidName('name')}}
-
         </span>
 
         <mat-form-field appearance="outline" class="mat-form-field-width">

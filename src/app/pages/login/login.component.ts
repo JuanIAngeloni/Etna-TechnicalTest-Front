@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { USERLOGINEMPTY, UserLogin } from 'src/app/core/models/userLogin';
+import { AuthService } from 'src/app/core/services/auth-service';
 import { UserService } from 'src/app/core/services/user.service';
 import { ValidatorService } from 'src/app/core/services/validator.service';
 
@@ -26,7 +27,8 @@ export class LoginComponent implements OnInit {
     private fb: FormBuilder,
     private router: Router,
     private validatorServic: ValidatorService,
-    private userService: UserService
+    private userService: UserService,
+    private authService: AuthService
   ) {
 
     this.loginForm = this.fb.group({
@@ -57,7 +59,12 @@ export class LoginComponent implements OnInit {
         let postLoginUser = await this.userService.postUserLogin(user);
         if (postLoginUser.ok) {
           console.log("UserRegistererd")
-          console.log(postLoginUser.data)
+
+          let token = postLoginUser.data ;
+          this.authService.setUserInLocalStorage(token);
+          this.authService.isAuthenticated$();
+          localStorage.setItem('userToken', token)
+          this.router.navigate(['/navbar'])
 
         }
       } else {

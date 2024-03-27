@@ -1,0 +1,55 @@
+.navbar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.spacer {
+    flex: 1 1 auto;
+}
+
+.profile-button {
+    background-color: #a99af7;
+    border: none;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.profile-icon {
+    width: 100px;
+    height: 100px;
+    border-radius: 100%;
+}
+
+.button-space {
+    margin-right: 40px;
+}
+
+.calendar-icon-button {
+    transform: scale(1.4);
+}
+.navbar-span {
+    display: block;
+    height: 1px; 
+    background-color: #5230ff; /* Color de fondo deseado */
+}
+
+
+@media screen and (max-width: 700px) {
+    .navbar {
+        height: 80px;
+    }
+
+.badge, 
+.profile-button,
+.appLogo{
+        transform: scale(1.5);
+    }
+    .navbar-span {
+        height: 0px; 
+    }
+
+}

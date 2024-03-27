@@ -78,13 +78,13 @@ h1 img {
 
 .register-button,
 .comeback-button {
-    width: 100%; /* Hace que los botones tengan el mismo ancho que el formulario */
+    width: 100%;
     height: 45px;
-    margin-bottom: 10px; /* Aumenta el espacio entre los botones */
+    margin-bottom: 10px;
 }
 @media screen and (max-width: 600px) {
     .form {
-        max-width: 90%; /* Reducir el ancho máximo del formulario en dispositivos móviles */
+        max-width: 90%;
     }
     .buttonPurple {
         margin-right: 200px;

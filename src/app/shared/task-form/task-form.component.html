@@ -1,0 +1,43 @@
+<form [formGroup]="taskForm" (ngSubmit)="onSubmit()" class="form">
+
+    <mat-form-field appearance="outline" class="mat-form-field-width">
+        <mat-label>Título</mat-label>
+        <input matInput id="task" formControlName="title">
+    </mat-form-field>
+            
+    <span *ngIf="isValidField('title')" class="form-text text-danger">
+        {{isValidName('title')}}
+    </span>
+
+
+    <mat-form-field appearance="outline" class="mat-form-field-width">
+        <mat-label>Prioridad</mat-label>
+        <input matInput type="number" id="priority" formControlName="priority">
+    </mat-form-field>
+        
+    <span *ngIf="isValidField('priority')" class="form-text text-danger">
+        {{isValidName('priority')}}
+    </span>
+
+    <mat-form-field appearance="outline" class="mat-form-field-width">
+        <mat-label>Categoria</mat-label>
+        <mat-select id="category" formControlName="category">
+            <mat-option *ngFor="let category of categoryList" [value]="category.categoryId">{{category.name}}</mat-option>
+        </mat-select>
+    </mat-form-field>
+        
+    <span *ngIf="isValidField('category')" class="form-text text-danger">
+        {{isValidName('category')}}
+    </span>
+
+    <mat-form-field appearance="outline" class="mat-form-field-width">
+        <mat-label>Descripción</mat-label>
+        <textarea matInput id="description" formControlName="description">Descripción</textarea>
+    </mat-form-field>
+        
+    <span *ngIf="isValidField('description')" class="form-text text-danger">
+        {{isValidName('description')}}
+    </span>
+
+    <button mat-button type="submit" class="submit-button">{{submitBtnMsg}}</button>
+</form>

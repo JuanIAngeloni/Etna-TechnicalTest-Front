@@ -1,0 +1,54 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 80vh;
+}
+
+.form {
+    width: 200%;
+    max-width: 400px;
+    display: flex;
+    flex-direction: column;
+}
+
+.buttonPurple {
+    margin-right: 240px;
+    font-size: 18px;
+    font-weight: 500;
+
+}
+
+.buttonPurple button {
+    vertical-align: middle;
+    color: #5230ff;
+    background-color: transparent;
+    border: none;
+}
+
+
+@media screen and (max-width: 600px) {
+    .container {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        height: 80vh;
+    }
+
+    .form {
+        max-width: 85%;
+    }
+
+    .buttonPurple {
+        margin-right: 200px;
+    }
+}
+
+@media screen and (max-width: 360px) {
+    .buttonPurple {
+        margin-right: 120px;
+    }
+
+}

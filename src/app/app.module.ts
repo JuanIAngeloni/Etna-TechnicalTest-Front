@@ -22,7 +22,9 @@ import { MatFormFieldModule } from '@angular/material/form-field';
     PagesModule,
     BrowserAnimationsModule,
     MatSlideToggleModule,
-    MatFormFieldModule
+    MatFormFieldModule,
+    
+
   ],
   providers: [],
   bootstrap: [AppComponent]
