@@ -5,7 +5,7 @@ export const environment = {
   get newHeaders() {
     return {
       'accept': 'text/plain',
-      'Authorization': 'Bearer ' + JSON.parse(localStorage.getItem("userToken")!),
+      'Authorization': 'Bearer ' + (localStorage.getItem("userToken")),
       'Content-type': 'application/json',
     };
 

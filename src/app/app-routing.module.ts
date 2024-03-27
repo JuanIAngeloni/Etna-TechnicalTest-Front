@@ -7,20 +7,16 @@ import { NewTaskComponent } from './pages/new-task/new-task.component';
 import { TaskFormComponent } from './shared/task-form/task-form.component';
 import { HomeComponent } from './pages/home/home.component';
 import { UpdateTaskComponent } from './pages/update-task/update-task.component';
+import { permissionsGuard } from './core/guards/auth.guard';
+
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
-  { path: 'navbar', component: NavbarComponent },
-  { path: 'tarea', component: HomeComponent },
+  { path: 'task', component: HomeComponent, canActivate: [permissionsGuard] },
+  { path: 'edit/:id', component: UpdateTaskComponent, canActivate: [permissionsGuard] },
+  { path: 'create', component: NewTaskComponent, canActivate: [permissionsGuard] },
 
-  {
-    path: 'tarea',
-    children: [
-      { path: 'edit/:id', component: UpdateTaskComponent },
-      { path: 'create', component: NewTaskComponent },
-    ]
-  },
   { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: '**', redirectTo: 'login', pathMatch: 'full' }
 ]

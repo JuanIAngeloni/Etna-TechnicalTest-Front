@@ -13,6 +13,34 @@ export class TaskService {
 
   constructor(private http: HttpClient) { }
 
+  async getTaskList(): Promise<any> {
+    try {
+      const requestOptions = { headers: new HttpHeaders(environment.newHeaders) };
+
+      let url = `${this.apiURL}/task`;
+      let response = await this.http.get(url, requestOptions).toPromise();
+      return { data: response, ok: true, errors: [] };
+    } catch (error) {
+      return { data: { error: error }, ok: false, errors: [error] };
+
+    }
+  }
+
+  async getTaskById(taskId: number): Promise<any> {
+    try {
+      const requestOptions = { headers: new HttpHeaders(environment.newHeaders) };
+console.log("asd")
+      let url = `${this.apiURL}/task/${taskId}`;
+      let response = await this.http.get(url, requestOptions).toPromise();
+      return { data: response, ok: true, errors: [] };
+    } catch (error) {
+      console.log(error)
+      return { data: { error: error }, ok: false, errors: [error] };
+
+    }
+  }
+
+
   async postNewTask(newTask: TaskPost): Promise<any> {
     try {
 
@@ -54,17 +82,6 @@ export class TaskService {
     }
   }
 
-  async getTaskById(taskId: number): Promise<any> {
-    try {
-      const requestOptions = { headers: new HttpHeaders(environment.newHeaders) };
 
-      let url = `${this.apiURL}/task/${taskId}`;
-      let response = await this.http.get(url, requestOptions).toPromise();
-      return { data: response, ok: true, errors: [] };
-    } catch (error) {
-      return { data: { error: error }, ok: false, errors: [error] };
-
-    }
-  }
 
 }

@@ -42,6 +42,7 @@ export class NewTaskComponent {
 
   async onFormSubmit(taskData: Task) {
     try {
+
       taskData.userId = this.authService.userLogged.userId;
 
       let task: TaskPost = { 
@@ -50,7 +51,7 @@ export class NewTaskComponent {
         priority: taskData.priority, 
         userId: taskData.userId, 
         categoryId: taskData.categoryId 
-      };      console.log(244, task)
+      };     
 
       const postTask = await this.taskService.postNewTask(task);
       if (postTask.ok) {
@@ -68,7 +69,7 @@ export class NewTaskComponent {
   }
 
   redirectToHomePage(): void {
-    this.router.navigate(['/tarea']);
+    this.router.navigate(['/task']);
   }
 
 }

@@ -38,7 +38,9 @@
 .mat-form-field-width {
     width: 100%;
 }
-
+.subtitle-text {
+    padding-bottom: 8px; 
+}
 .mat-form-field-width button {
     color: #5230ff;
     background-color: transparent;

@@ -75,6 +75,6 @@ export class UpdateTaskComponent implements OnInit {
   }
 
   redirectToHomePage(): void {
-    this.router.navigate(['/tarea']);
+    this.router.navigate(['/task']);
   }
 }
