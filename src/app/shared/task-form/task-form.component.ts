@@ -1,8 +1,11 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { FormBuilder, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 import { Category } from 'src/app/core/models/category';
-import { TASKEMPTY, Task } from 'src/app/core/models/task';
+import { Task } from 'src/app/core/models/task';
+import { TaskPost } from 'src/app/core/models/taskPost';
+import { TASKUPDATEEMPTY, TaskUpdate } from 'src/app/core/models/taskUpdate';
 import { AuthService } from 'src/app/core/services/auth-service';
 import { TaskService } from 'src/app/core/services/task.service';
 import { ValidatorService } from 'src/app/core/services/validator.service';
@@ -14,14 +17,18 @@ import { ValidatorService } from 'src/app/core/services/validator.service';
 })
 export class TaskFormComponent implements OnInit {
 
-  taskData: Task = TASKEMPTY;
-  categoryList : Category[]= [];
-  
-  isCreatorTask: boolean = true;
-  submitBtnMsg : string = "";
+  taskData: TaskUpdate = TASKUPDATEEMPTY;
+  categoryList: Category[] = [];
+
+  isCreatorTask: boolean;
+  submitBtnMsg: string;
+
+  @Input() taskIdToUpdate: number;
+  routeSubscription: Subscription;
+  comeBackMsg: string;
 
   public taskForm = this.fb.group({
-    title: ['', [Validators.required, Validators.maxLength(50)]],
+    title: ['', [Validators.required, Validators.maxLength(500)]],
     category: ['', [Validators.required]],
     priority: ['', [Validators.required, Validators.max(6), Validators.min(1)]],
     description: ['', [Validators.required, Validators.maxLength(50)]],
@@ -32,17 +39,55 @@ export class TaskFormComponent implements OnInit {
     private validatorService: ValidatorService,
     private router: Router,
     private taskService: TaskService,
-    private authService: AuthService) {
-      
+    private authService: AuthService,
+    private urlRoute: ActivatedRoute,) {
+    this.routeSubscription = new Subscription;
+    this.taskIdToUpdate = -1;
+    this.submitBtnMsg = "";
+    this.isCreatorTask = true;
+    this.comeBackMsg = "";
   }
+
   ngOnInit(): void {
     this.loadCategoryList();
-    
-    if(this.isCreatorTask == true){
-      this.submitBtnMsg = "Crear"
+    this.isEditOrCreatorForm();
+  }
+
+
+  isEditOrCreatorForm() {
+    this.routeSubscription = this.urlRoute.params.subscribe(params => {
+
+      if (params['id']) {
+        this.taskIdToUpdate = params['id'];
+        this.isCreatorTask = false;
+        this.LoadTaskByIdToUpdate(this.taskIdToUpdate);
+
+      }
+      else{
+        this.submitBtnMsg = "Crear"
+        this.comeBackMsg = "Nueva Tarea"
+      }
+    });
+  }
+
+
+  async LoadTaskByIdToUpdate(taskIdToUpdate: number) {
+    try {
+      const getTaskId = await this.taskService.getTaskById(taskIdToUpdate);
+      if (getTaskId.ok) {
+        console.log(getTaskId.data)
+        this.taskData = getTaskId.data;
+
+        this.taskForm.setValue({
+          title: this.taskData.title,
+          category: this.taskData.category.name,
+          priority: this.taskData.priority.toString(),
+          description: this.taskData.description,
+        });
+      }
     }
-    else{
-      this.submitBtnMsg = "Guardar"
+    catch (error) {
+      console.log(error)
     }
   }
 
@@ -62,25 +107,35 @@ export class TaskFormComponent implements OnInit {
 
       let formValues = this.taskForm.value;
       this.taskData.title = formValues.title!;
-      this.taskData.categoryId = parseInt(formValues.category!);
       this.taskData.priority = parseInt(formValues.priority!);
       this.taskData.description = formValues.description!;
+      const categoryId = this.getCategoryIdByName(formValues.category!);
+      if (categoryId !== undefined) {
+        this.taskData.categoryId = categoryId
+
 
       if (this.isCreatorTask) {
-        this.taskData.userId = this.authService.userLogged.userId;
+        console.log("create")
         this.registerTask(this.taskData);
       } else {
+        console.log("update")
         this.updateTask(this.taskData);
+        }
+
       }
     }
   }
 
 
 
-  async registerTask(taskForm: Task) {
+  async registerTask(taskData: Task) {
     try {
-
-      const postTask = await this.taskService.postNewTask(taskForm);
+      taskData.userId = this.authService.userLogged.userId;
+      console.log(this.authService.userLogged)
+      console.log(244,taskData)
+      let task :TaskPost = {title: taskData.title, description : taskData.description, priority : taskData.priority, userId: taskData.userId, categoryId:taskData.categoryId }
+    
+      const postTask = await this.taskService.postNewTask(task);
       if (postTask.ok) {
         console.log(postTask.data)
       }
@@ -103,19 +158,27 @@ export class TaskFormComponent implements OnInit {
     }
   }
 
-async loadCategoryList(): Promise<void>{
-  try {
-    const resultCategoryList = await this.taskService.getCategories();
-    if (resultCategoryList.ok) {
-      this.categoryList = resultCategoryList.data;
-    } else {
-      const errorMessage = resultCategoryList.error;
-      console.log(errorMessage)
+  async loadCategoryList(): Promise<void> {
+    try {
+      const resultCategoryList = await this.taskService.getCategories();
+      if (resultCategoryList.ok) {
+        this.categoryList = resultCategoryList.data;
+      } else {
+        const errorMessage = resultCategoryList.error;
+        console.log(errorMessage)
+      }
+    } catch (error) {
+      console.error("Error:", error);
     }
-  } catch (error) {
-    console.error("Error:", error);
   }
-}
+
+
+  getCategoryIdByName(categoryName: string): number | undefined {
+    const category = this.categoryList.find(category => category.name === categoryName);
+    return category ? category.categoryId : undefined;
+  }
+  
+  
   redirectToHomePage(): void {
     this.router.navigate(['/home']);
   }

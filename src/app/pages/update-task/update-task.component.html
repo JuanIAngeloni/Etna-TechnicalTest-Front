@@ -3,13 +3,12 @@
         <button mat-icon-button color="#5230ff" aria-label="Login page" (click)="redirectToHomePage()">
             <mat-icon>arrow_back</mat-icon>
         </button>
-        Nueva Tarea
+        Editar
     </h3>
     <div class="form">
-        <app-task-form></app-task-form>
+        <app-task-form [taskIdToUpdate]="taskIdToUpdate"></app-task-form>
     </div>
-    <button mat-button type="submit" class="submit-button">Crear</button>
+    <button mat-button type="submit" class="submit-button">Guardar</button>
 </div>
-<!-- 
-this.submitBtnMsg = "Crear"
-this.comeBackMsg = "Nueva Tarea" -->
+<!-- this.submitBtnMsg = "Guardar"
+this.comeBackMsg = "Editar" -->

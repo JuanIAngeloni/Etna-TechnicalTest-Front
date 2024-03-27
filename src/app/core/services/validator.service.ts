@@ -24,7 +24,7 @@ export class ValidatorService {
     return (formGroup: FormGroup): ValidationErrors | null => {
       let firstPassword = formGroup.get(password)?.value;
       let repeatedPassword = formGroup.get(repeatPassword)?.value;
-  
+
       if (firstPassword !== repeatedPassword) {
         formGroup.get(repeatPassword)?.setErrors({ equalPasswordsFields: true });
         return { equalPasswordsFields: true };
@@ -34,7 +34,7 @@ export class ValidatorService {
       }
     };
   }
-  
+
 
 
 
@@ -48,15 +48,19 @@ export class ValidatorService {
     for (const key of Object.keys(errors)) {
       switch (key) {
         case 'required':
-          return 'Este campo es requerido';
+          return 'Este campo es requerido.';
         case 'maxlength':
-          return 'El maximo de caracteres posible es 50';
+          return 'El maximo de caracteres posible es 50.';
         case 'email':
-          return 'Este campo debe tener un formato de email';
+          return 'Este campo debe tener un formato de email.';
         case 'pattern':
-          return 'minimo 8 caracteres, 1 dígito numérico, 1 letra mayuscula y 1 carácter no alfanumérico (!, . -, etc.)';
+          return 'minimo 8 caracteres, 1 dígito numérico, 1 letra mayuscula y 1 carácter no alfanumérico (!, . -, etc.).';
         case 'equalPasswordsFields':
-          return 'Las contraseñas ingresadas no coinciden';
+          return 'Las contraseñas ingresadas no coinciden.';
+        case 'min':
+          return 'Debe ser un numero entre 1 y 5.';
+        case 'max':
+          return 'Debe ser un numero entre 1 y 5.';
 
       }
     }

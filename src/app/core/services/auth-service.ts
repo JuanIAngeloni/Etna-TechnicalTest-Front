@@ -24,8 +24,11 @@ export class AuthService {
   }
 
   setUserInLocalStorage(token: string) {
-    localStorage.setItem("userToken", JSON.stringify(token));
-  }
+    let tokenString = JSON.stringify(token);
+    localStorage.setItem("userToken", tokenString);
+
+
+}  
 
   /**
    * Checks if the user is authenticated based on token presence in local storage.
@@ -38,6 +41,7 @@ export class AuthService {
       const { name, lastName, email, userId } = decoded;
       this.userLogged = { name: name, lastName: lastName, email: email,userId:userId };
       this.isAuthenticatedSubject.next(true);
+      console.log(231,this.userLogged)
     }
     else {
       this.userLogged = USERLOGGEDEMPTY;

@@ -58,13 +58,13 @@ export class LoginComponent implements OnInit {
         let user: UserLogin = this.loginForm.value;
         let postLoginUser = await this.userService.postUserLogin(user);
         if (postLoginUser.ok) {
-          console.log("UserRegistererd")
 
           let token = postLoginUser.data ;
-          this.authService.setUserInLocalStorage(token);
+          console.log(123123,token.token)
+          this.authService.setUserInLocalStorage(token.token);
           this.authService.isAuthenticated$();
-          localStorage.setItem('userToken', token)
-          this.router.navigate(['/navbar'])
+
+          this.router.navigate(['/tarea/create'])
 
         }
       } else {

@@ -13,6 +13,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { NewTaskComponent } from './new-task/new-task.component';
 import { SharedModule } from 'src/app/shared/shared.module';
+import { UpdateTaskComponent } from './update-task/update-task.component';
 
 
 
@@ -23,6 +24,7 @@ import { SharedModule } from 'src/app/shared/shared.module';
     LoginComponent,
     HomeComponent,
     NewTaskComponent,
+    UpdateTaskComponent,
     
   ],
   imports: [
