@@ -6,9 +6,13 @@
         Nueva Tarea
     </h3>
     <div class="form">
-        <app-task-form></app-task-form>
+        <app-task-form 
+            [taskIdToUpdate]="taskIdToUpdate" 
+            [taskData]="taskData" 
+            (formSubmit)="onFormSubmit($event)">
+        </app-task-form>
+        <button mat-button type="submit" class="submit-button" (click)="saveTask()">Crear</button>
     </div>
-    <button mat-button type="submit" class="submit-button">Crear</button>
 </div>
 <!-- 
 this.submitBtnMsg = "Crear"

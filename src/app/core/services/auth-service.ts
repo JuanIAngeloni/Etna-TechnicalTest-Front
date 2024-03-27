@@ -39,7 +39,7 @@ export class AuthService {
       const userToken: string = localStorage.getItem("userToken")!;
       const decoded: any = jwtDecode(userToken);
       const { name, lastName, email, userId } = decoded;
-      this.userLogged = { name: name, lastName: lastName, email: email,userId:userId };
+      this.userLogged = { name: name, lastName: lastName, email: email,userId: parseInt(userId) };
       this.isAuthenticatedSubject.next(true);
       console.log(231,this.userLogged)
     }

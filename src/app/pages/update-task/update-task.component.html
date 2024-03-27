@@ -6,9 +6,11 @@
         Editar
     </h3>
     <div class="form">
-        <app-task-form [taskIdToUpdate]="taskIdToUpdate"></app-task-form>
+        <app-task-form 
+            [taskIdToUpdate]="taskIdToUpdate" 
+            [taskData]="taskData" 
+            (formSubmit)="onFormSubmit($event)">
+        </app-task-form>
+        <button mat-button type="submit" class="submit-button" (click)="saveTask()">Guardar</button>
     </div>
-    <button mat-button type="submit" class="submit-button">Guardar</button>
 </div>
-<!-- this.submitBtnMsg = "Guardar"
-this.comeBackMsg = "Editar" -->

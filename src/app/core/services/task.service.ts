@@ -15,9 +15,10 @@ export class TaskService {
 
   async postNewTask(newTask: TaskPost): Promise<any> {
     try {
-      ;
+
+      const requestOptions = { headers: new HttpHeaders(environment.newHeaders) };
       let url = `${this.apiURL}/task`;
-      let response = await this.http.post(url, newTask).toPromise();
+      let response = await this.http.post(url, newTask, requestOptions).toPromise();
       return { data: response, ok: true, errors: [] };
     } catch (error) {
       return { data: { error: error }, ok: false, errors: [error] };

@@ -13,19 +13,7 @@
     margin-bottom: 5px;
 }
 
-.buttonPurple {
-    margin-right: 240px;
-    font-size: 18px;
-    font-weight: 500;
 
-}
-
-.buttonPurple button {
-    vertical-align: middle;
-    color: #5230ff;
-    background-color: transparent;
-    border: none;
-}
 
 .register-button,
 .comeback-button {

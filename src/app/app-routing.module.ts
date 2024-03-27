@@ -6,6 +6,7 @@ import { NavbarComponent } from './shared/navbar/navbar.component';
 import { NewTaskComponent } from './pages/new-task/new-task.component';
 import { TaskFormComponent } from './shared/task-form/task-form.component';
 import { HomeComponent } from './pages/home/home.component';
+import { UpdateTaskComponent } from './pages/update-task/update-task.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -16,7 +17,7 @@ const routes: Routes = [
   {
     path: 'tarea',
     children: [
-      { path: 'edit/:id', component: TaskFormComponent },
+      { path: 'edit/:id', component: UpdateTaskComponent },
       { path: 'create', component: NewTaskComponent },
     ]
   },
