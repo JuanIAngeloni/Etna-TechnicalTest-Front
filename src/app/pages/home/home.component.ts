@@ -10,13 +10,23 @@ import { TaskService } from 'src/app/core/services/task.service';
 })
 export class HomeComponent {
 
+  idTaskToUpdate : number = 0;
+  
   constructor(
     private router: Router,
     private taskService: TaskService,
     private authService: AuthService){}
 
+
+
+
+
+
+
+
 redirectEditPage() {
-  this.router.navigate(['tarea/edit/:id']);
+  this.router.navigate([`tarea/edit/${this.idTaskToUpdate}`])
+
 }
 redirectCreatePage(){
   this.router.navigate(['tarea/create']);

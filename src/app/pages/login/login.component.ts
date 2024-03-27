@@ -64,7 +64,7 @@ export class LoginComponent implements OnInit {
           this.authService.setUserInLocalStorage(token.token);
           this.authService.isAuthenticated$();
 
-          this.router.navigate(['/tarea/create'])
+          this.router.navigate(['/tarea'])
 
         }
       } else {

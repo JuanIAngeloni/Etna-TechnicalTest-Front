@@ -1,0 +1,26 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    overflow-x:auto; 
+}
+
+.title {
+    margin-bottom: 10px;
+    
+}
+.buttonPurple {
+    margin-right: 240px;
+    font-size: 18px;
+    font-weight:500;
+    
+}
+
+
+.card-list{
+    width: 100%;
+    max-width: 400px;
+    text-align: center;
+}

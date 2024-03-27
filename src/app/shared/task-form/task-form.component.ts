@@ -79,12 +79,11 @@ export class TaskFormComponent implements OnInit, OnChanges {
     try {
       this.taskForm.patchValue({
         title: taskData.title,
-        category: taskData.category?.name!,
+        category: taskData.category.name,
         priority: taskData.priority.toString(),
         description: taskData.description,
       });
     } catch (error) {
-      console.log(error);
     }
   }
 
@@ -119,9 +118,6 @@ export class TaskFormComponent implements OnInit, OnChanges {
     }
   }
 
-
-
-
   async loadCategoryList(): Promise<void> {
     try {
       const resultCategoryList = await this.taskService.getCategories();
@@ -129,7 +125,6 @@ export class TaskFormComponent implements OnInit, OnChanges {
         this.categoryList = resultCategoryList.data;
       } else {
         const errorMessage = resultCategoryList.error;
-        console.log(errorMessage)
       }
     } catch (error) {
       console.error("Error:", error);

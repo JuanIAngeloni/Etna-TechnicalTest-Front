@@ -14,7 +14,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { NewTaskComponent } from './new-task/new-task.component';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { UpdateTaskComponent } from './update-task/update-task.component';
-
+import {MatCardModule} from '@angular/material/card';
 
 
 
@@ -37,6 +37,7 @@ import { UpdateTaskComponent } from './update-task/update-task.component';
     MatSelectModule,
     MatIconModule,
     MatButtonModule,
+    MatCardModule,
     AppRoutingModule,
     SharedModule
     

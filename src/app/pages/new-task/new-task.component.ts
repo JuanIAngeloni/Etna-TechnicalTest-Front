@@ -54,8 +54,9 @@ export class NewTaskComponent {
 
       const postTask = await this.taskService.postNewTask(task);
       if (postTask.ok) {
+        
         this.taskData = postTask.data;
-        console.log(this.taskData)
+        this.redirectToHomePage()
       }
     }
     catch (error) {
@@ -67,7 +68,7 @@ export class NewTaskComponent {
   }
 
   redirectToHomePage(): void {
-    this.router.navigate(['/home']);
+    this.router.navigate(['/tarea']);
   }
 
 }

@@ -17,7 +17,6 @@ export class UpdateTaskComponent implements OnInit {
 
 
   ngAfterViewInit() {
-    console.log( this.taskFormComponent);
   }  
 
   taskData: TaskUpdate = TASKUPDATEEMPTY;
@@ -49,7 +48,7 @@ export class UpdateTaskComponent implements OnInit {
       })
       const getTaskId = await this.taskService.getTaskById(this.taskIdToUpdate);
       if (getTaskId.ok) {
-        console.log(getTaskId.data)
+        
         this.taskData = getTaskId.data;
       }
     }
@@ -64,7 +63,7 @@ export class UpdateTaskComponent implements OnInit {
       const updateTask = await this.taskService.putTask(taskData);
       if (updateTask.ok) {
         this.taskData = updateTask.data;
-        console.log(this.taskData);
+        this.redirectToHomePage()
       }
     } catch (error) {
       console.log(error);
@@ -76,6 +75,6 @@ export class UpdateTaskComponent implements OnInit {
   }
 
   redirectToHomePage(): void {
-    this.router.navigate(['/home']);
+    this.router.navigate(['/tarea']);
   }
 }
