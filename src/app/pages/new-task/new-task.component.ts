@@ -7,7 +7,6 @@ import { Router } from '@angular/router';
   styleUrls: ['./new-task.component.css']
 })
 export class NewTaskComponent {
-  isCreatorTask: boolean = false;
 
   constructor(
     private router: Router,

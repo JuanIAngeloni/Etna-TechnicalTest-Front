@@ -3,7 +3,14 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    height: 100vh;
+    height: 80vh;
+}
+
+.form {
+    width: 100%;
+    max-width: 400px;
+    display: flex;
+    flex-direction: column;
 }
 
 .mat-form-field-width {
@@ -11,25 +18,66 @@
 }
 
 .submit-button {
-    width: 100%; 
+    width: 100%;
     height: 45px;
-    background-color: #5230ff; 
+    background-color: #5230ff;
     color: white !important;
     margin-bottom: 5px;
+}
+
+.buttonPurple {
+    margin-right: 240px;
+    font-size: 18px;
+    font-weight: 500;
+
+}
+
+.buttonPurple button {
+    vertical-align: middle;
+    color: #5230ff;
+    background-color: transparent;
+    border: none;
 }
 
 .register-button,
 .comeback-button {
     width: 100%;
     height: 45px;
-    margin-bottom: 10px; 
+    margin-bottom: 10px;
 }
 
-@media screen and (max-width: 600px) {
-
-}
 .text-danger {
     color: red !important;
     font-weight: 300;
 }
 
+@media screen and (max-width: 600px) {
+
+
+    .container {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        height: 80vh;
+    }
+    
+    .form {
+        width: 90%;
+        max-width: 400px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .buttonPurple {
+        margin-right: 200px;
+    }
+}
+
+@media screen and (max-width: 360px) {
+    .buttonPurple {
+        margin-right: 120px;
+    }
+
+}

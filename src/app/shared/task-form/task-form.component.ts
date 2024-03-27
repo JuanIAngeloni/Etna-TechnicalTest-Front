@@ -14,11 +14,10 @@ import { ValidatorService } from 'src/app/core/services/validator.service';
 })
 export class TaskFormComponent implements OnInit {
 
-  @Input() isCreatorTask: boolean = true;
-
   taskData: Task = TASKEMPTY;
   categoryList : Category[]= [];
-
+  
+  isCreatorTask: boolean = true;
   submitBtnMsg : string = "";
 
   public taskForm = this.fb.group({
