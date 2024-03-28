@@ -10,16 +10,15 @@ import { AuthService } from 'src/app/core/services/auth-service';
   styleUrls: ['./dialog-logout.component.css']
 })
 export class DialogLogoutComponent {
+
+  userLogged: UserLogged = USERLOGGEDEMPTY;
+
 logoutUser() {
   localStorage.removeItem("userToken");
   this.authService.userLogged = USERLOGGEDEMPTY;
   this.authService.isAuthenticated$();
   this.router.navigate([`/login`]);
-
 }
-
-
-  userLogged: UserLogged = USERLOGGEDEMPTY;
 
 
   constructor(

@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { TaskFilter } from 'src/app/core/models/taskFilter';
 import { TASKUPDATEEMPTY, TaskUpdate } from 'src/app/core/models/taskUpdate';
 import { TaskService } from 'src/app/core/services/task.service';
 import { TaskFormComponent } from 'src/app/shared/task-form/task-form.component';
@@ -22,7 +23,7 @@ export class UpdateTaskComponent implements OnInit {
   taskData: TaskUpdate = TASKUPDATEEMPTY;
   taskIdToUpdate: number;
   routeSubscription: Subscription;
-
+  taskFilter : TaskFilter = new TaskFilter;
   constructor(
     private router: Router,
     private urlRoute: ActivatedRoute,
@@ -30,7 +31,6 @@ export class UpdateTaskComponent implements OnInit {
   ) {
     this.routeSubscription = new Subscription;
     this.taskIdToUpdate = -1;
-
   }
 
   ngOnInit(): void {
@@ -46,10 +46,11 @@ export class UpdateTaskComponent implements OnInit {
           this.taskIdToUpdate = params['id'];
         }
       })
-      const getTaskId = await this.taskService.getTaskById(this.taskIdToUpdate);
+      this.taskFilter.taskId = this.taskIdToUpdate;
+      const getTaskId = await this.taskService.getTaskList(this.taskFilter);
       if (getTaskId.ok) {
         
-        this.taskData = getTaskId.data;
+        this.taskData = getTaskId.data[0];
       }
     }
     catch (error) {

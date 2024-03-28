@@ -3,8 +3,6 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { Category } from 'src/app/core/models/category';
-import { Task } from 'src/app/core/models/task';
-import { TaskPost } from 'src/app/core/models/taskPost';
 import { TASKUPDATEEMPTY, TaskUpdate } from 'src/app/core/models/taskUpdate';
 import { AuthService } from 'src/app/core/services/auth-service';
 import { TaskService } from 'src/app/core/services/task.service';
@@ -33,19 +31,17 @@ export class TaskFormComponent implements OnInit, OnChanges {
   comeBackMsg: string;
 
   public taskForm = this.fb.group({
-    title: ['', [Validators.required, Validators.maxLength(500)]],
+    title: ['', [Validators.required, Validators.maxLength(50)]],
     category: ['', [Validators.required]],
     priority: ['', [Validators.required, Validators.max(5), Validators.min(1)]],
-    description: ['', [Validators.required, Validators.maxLength(50)]],
+    description: ['', [Validators.required, Validators.maxLength(500)]],
   });
 
   constructor(
     private fb: FormBuilder,
     private validatorService: ValidatorService,
     private router: Router,
-    private taskService: TaskService,
-    private authService: AuthService,
-    private urlRoute: ActivatedRoute,) {
+    private taskService: TaskService) {
     this.routeSubscription = new Subscription;
     this.taskIdToUpdate = -1;
     this.submitBtnMsg = "";

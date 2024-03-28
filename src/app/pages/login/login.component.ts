@@ -53,6 +53,7 @@ export class LoginComponent implements OnInit {
 
   async logUser() {
     try {
+      this.showErrorMsg = false;
       this.loginForm.markAllAsTouched;
       if (this.loginForm.valid) {
         let user: UserLogin = this.loginForm.value;
@@ -61,11 +62,14 @@ export class LoginComponent implements OnInit {
 
           let token = postLoginUser.data.token ;
           this.authService.setUserInLocalStorage(token);
-          console.log(1)
           this.authService.isAuthenticated$();
-          console.log(2)
+
           this.router.navigate(['/task'])
 
+        }else{
+          if(postLoginUser.data.error.status == 401)
+          this.showErrorMsg = true;
+          this.errorMsg = "Credenciales invalidas"
         }
       } else {
         this.loginForm.markAllAsTouched();

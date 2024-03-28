@@ -1,0 +1,28 @@
+.dialog {
+    display: flex;
+    flex-direction: column;
+    justify-content: center; 
+    align-items: center; 
+    height: 100%; 
+}
+
+.buttons-style {
+    display: flex; 
+    gap: 30px;
+}
+
+.delete-button,
+.confirm-button {
+    width: 85px; 
+}
+
+.delete-button {
+    background-color: white;
+    color: #5230ff !important;
+    border: 1px solid #5230ff;
+}
+
+.confirm-button {
+    background-color: #5230ff; 
+    color: white !important; 
+}

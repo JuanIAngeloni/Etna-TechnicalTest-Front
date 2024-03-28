@@ -15,7 +15,11 @@ import { NewTaskComponent } from './new-task/new-task.component';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { UpdateTaskComponent } from './update-task/update-task.component';
 import {MatCardModule} from '@angular/material/card';
-
+import { DialogDeleteTaskComponent } from './home/dialog-delete-task/dialog-delete-task.component';
+import {MatDialogModule} from '@angular/material/dialog';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import {MatCheckboxModule} from '@angular/material/checkbox';
+import {MatRadioModule} from '@angular/material/radio';
 
 
 @NgModule({
@@ -25,6 +29,7 @@ import {MatCardModule} from '@angular/material/card';
     HomeComponent,
     NewTaskComponent,
     UpdateTaskComponent,
+    DialogDeleteTaskComponent,
     
   ],
   imports: [
@@ -38,7 +43,11 @@ import {MatCardModule} from '@angular/material/card';
     MatIconModule,
     MatButtonModule,
     MatCardModule,
+    MatDialogModule,
     AppRoutingModule,
+    MatToolbarModule,
+    MatCheckboxModule,
+    MatRadioModule,
     SharedModule
     
   ],
