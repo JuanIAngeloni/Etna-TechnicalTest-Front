@@ -4,6 +4,8 @@ import { environment } from 'src/environments/environment.development';
 import { Task } from '../models/task';
 import { TaskPost } from '../models/taskPost';
 import { TaskFilter } from '../models/taskFilter';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { TaskUpdate } from '../models/taskUpdate';
 
 @Injectable({
   providedIn: 'root'
@@ -11,8 +13,16 @@ import { TaskFilter } from '../models/taskFilter';
 export class TaskService {
 
   private apiURL: string = environment.apiUrl;
-
+  
   constructor(private http: HttpClient) { }
+  
+  private taskListSubject: BehaviorSubject<TaskUpdate[]> = new BehaviorSubject<TaskUpdate[]>([]);
+  public taskList$: Observable<TaskUpdate[]> = this.taskListSubject.asObservable();
+
+  updateTaskList(taskList: TaskUpdate[]) {
+    this.taskListSubject.next(taskList);
+  }
+
 
   async getTaskList(taskFilter: TaskFilter): Promise<any> {
     try {
@@ -100,7 +110,6 @@ export class TaskService {
     try {
       const requestOptions = { headers: new HttpHeaders(environment.newHeaders) };
 
-      console.log(1,environment.newHeaders)
       let url = `${this.apiURL}/category`;
 
       let response = await this.http.get(url, requestOptions).toPromise();

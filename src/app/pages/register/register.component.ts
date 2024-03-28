@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MatFormFieldModule } from '@angular/material/form-field';
+import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { USEREMPTY, UserRegister } from 'src/app/core/models/userRegister';
 import { UserService } from 'src/app/core/services/user.service';
@@ -47,7 +46,6 @@ export class RegisterComponent {
   }
   isValidSecondPassword(field: string): string | null {
     const errorMessage = this.validatorService.getFieldError(this.registerForm, field);
-    console.log(12, errorMessage)
     return errorMessage ? errorMessage : null;
   }
 
@@ -72,7 +70,7 @@ export class RegisterComponent {
           localStorage.setItem('email', this.userToRegister.email);
           localStorage.setItem('password', this.userToRegister.password);
           localStorage.setItem('registerFlag', 'true');
-          // Redirigir al usuario a la página de login
+          this.registerForm.reset();
           this.redirectToLoginPage();
 
         } else {
@@ -85,18 +83,6 @@ export class RegisterComponent {
     }
     }
   }
-
-//borrar borrar borrar
-  showErrorsInConsole(){
-      Object.keys(this.registerForm.controls).forEach(field => {
-        const control = this.registerForm.get(field);
-        if (control && control.invalid) {
-          const errors = control.errors;
-          console.log('Error en el campo', field, errors);
-        }
-      });
-  }
-
 
   redirectToLoginPage():void {
     this.router.navigate(['/login']);

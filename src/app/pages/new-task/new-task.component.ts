@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { Task } from 'src/app/core/models/task';
 import { TaskPost } from 'src/app/core/models/taskPost';
@@ -20,18 +20,12 @@ export class NewTaskComponent {
   taskFormComponent!: TaskFormComponent;
 
 
-  ngAfterViewInit() {
-    console.log(this.taskFormComponent);
-  }
-
-
   taskData: TaskUpdate = TASKUPDATEEMPTY;
   taskIdToUpdate: number;
   routeSubscription: Subscription;
 
   constructor(
     private router: Router,
-    private urlRoute: ActivatedRoute,
     private taskService: TaskService,
     private authService: AuthService
   ) {

@@ -23,26 +23,31 @@ export class HomeComponent implements OnInit {
   checkboxState: boolean = false;
 
 
-  filtersToGetTaskList : TaskFilter = new TaskFilter;
+  filtersToGetTaskList: TaskFilter = new TaskFilter;
+  searchText: string = '';
+
+  page!: number;
 
 
   constructor(
     private router: Router,
     private taskService: TaskService,
-    private dialog : MatDialog) { }
+    private dialog: MatDialog) { }
 
   ngOnInit(): void {
-    this.filtersToGetTaskList.isCompleted=false;
+    this.filtersToGetTaskList.isCompleted = false;
     this.loadTaskList();
   }
 
   async loadTaskList() {
     try {
-      console.log(this.filtersToGetTaskList)
       const resultTaskList = await this.taskService.getTaskList(this.filtersToGetTaskList);
       if (resultTaskList.ok) {
         this.taskList = resultTaskList.data;
-        // Formatear las fechas
+        if(this.filtersToGetTaskList.isCompleted == false){
+          this.taskService.updateTaskList(this.taskList);
+        }
+
         this.taskList.forEach(task => {
           this.formattedCreateDate = this.formatDate(task.createDate);
           this.formattedUpdateDate = this.formatDate(task.updateDate);
@@ -61,7 +66,12 @@ export class HomeComponent implements OnInit {
     this.filtersToGetTaskList.isCompleted = option;
     this.loadTaskList();
   }
+  searchTextChanged() {
+    this.filtersToGetTaskList.text = this.searchText;
+    this.loadTaskList()
 
+
+  }
   deleteDialogComponent(idTask: number, enterAnimationDuration: string, exitAnimationDuration: string): void {
     const dialogRef = this.dialog.open(DialogDeleteTaskComponent, {
       width: '300px',
@@ -70,26 +80,25 @@ export class HomeComponent implements OnInit {
       data: { idTask }
     });
     dialogRef.afterClosed().subscribe(result => {
-      if (result) {
-        this.loadTaskList();
-      }
+
+      this.loadTaskList();
+      if (result) { }
     });
-  
   }
 
 
 
-  async setComplete(completed: boolean, taskToComplete : TaskUpdate) {
-      try {
-        taskToComplete.isCompleted= completed;
-        const deleteTask = await this.taskService.UpdateIsCompletedTask(taskToComplete.taskId);
-        if (deleteTask.ok) {
-          this.loadTaskList();
-        }
-      } catch (error) {
-        console.log(error);
+  async setComplete(completed: boolean, taskToComplete: TaskUpdate) {
+    try {
+      taskToComplete.isCompleted = completed;
+      const deleteTask = await this.taskService.UpdateIsCompletedTask(taskToComplete.taskId);
+      if (deleteTask.ok) {
+        this.loadTaskList();
       }
+    } catch (error) {
+      console.log(error);
     }
+  }
 
   private formatDate(dateString: string): string {
     const date = new Date(dateString);

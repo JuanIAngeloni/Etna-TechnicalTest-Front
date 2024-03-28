@@ -31,13 +31,10 @@ export class AuthService {
       const decoded: any = jwtDecode(userToken);
       const { name, lastName, email, userId, role } = decoded;
       this.userLogged = { name: name, lastName: lastName, email: email, userId: parseInt(userId), token: userToken, role: role };
-      console.log(33, this.userLogged);
       this.isAuthenticatedSubject.next(true);
-      console.log("logueado");
     } else {
       this.userLogged = USERLOGGEDEMPTY;
       this.isAuthenticatedSubject.next(false);
-      console.log("deslogueado");
     }
     return this.isAuthenticatedSubject.asObservable();
   }
@@ -59,11 +56,9 @@ export class AuthService {
         }),
         params: new HttpParams().set('token', token)
       };
-      console.log(requestOptions);
       const response = await this.http.get<boolean>('https://localhost:7120/tokenValidated', requestOptions).toPromise();
 
       if (typeof response === 'boolean') {
-        console.log("token validation: ", response);
         return response;
       } else {
         console.error('Respuesta de token no válida:', response);

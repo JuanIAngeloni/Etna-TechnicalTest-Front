@@ -1,10 +1,10 @@
-import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { Category } from 'src/app/core/models/category';
-import { TASKUPDATEEMPTY, TaskUpdate } from 'src/app/core/models/taskUpdate';
-import { AuthService } from 'src/app/core/services/auth-service';
+import { TASKEMPTY, Task } from 'src/app/core/models/task';
+import { TaskUpdate } from 'src/app/core/models/taskUpdate';
 import { TaskService } from 'src/app/core/services/task.service';
 import { ValidatorService } from 'src/app/core/services/validator.service';
 
@@ -13,20 +13,15 @@ import { ValidatorService } from 'src/app/core/services/validator.service';
   templateUrl: './task-form.component.html',
   styleUrls: ['./task-form.component.css']
 })
-export class TaskFormComponent implements OnInit, OnChanges {
+export class TaskFormComponent implements OnInit, OnChanges, OnDestroy {
 
-
-  categoryList: Category[] = [];
-
-  isCreatorTask: boolean;
-  submitBtnMsg: string;
-
-  @Output() formSubmit: EventEmitter<TaskUpdate> = new EventEmitter<TaskUpdate>();
-
-
-  @Input() taskData: TaskUpdate = TASKUPDATEEMPTY;
+  @Output() formSubmit: EventEmitter<Task> = new EventEmitter<Task>();
+  @Input() taskData: Task = TASKEMPTY;
   @Input() taskIdToUpdate: number;
 
+  categoryList: Category[] = [];
+  isCreatorTask: boolean;
+  submitBtnMsg: string;
   routeSubscription: Subscription;
   comeBackMsg: string;
 
@@ -47,12 +42,11 @@ export class TaskFormComponent implements OnInit, OnChanges {
     this.submitBtnMsg = "";
     this.isCreatorTask = true;
     this.comeBackMsg = "";
-    this.taskData = TASKUPDATEEMPTY;
   }
 
   ngOnInit(): void {
     this.loadCategoryList();
-    this.isEditOrCreatorForm();
+
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -61,32 +55,34 @@ export class TaskFormComponent implements OnInit, OnChanges {
     }
   }
 
+  ngOnDestroy(): void {
+    this.taskForm.reset();
+    this.routeSubscription.unsubscribe();
+  }
+
 
   isEditOrCreatorForm() {
     if (this.taskIdToUpdate != -1) {
       this.isCreatorTask = false;
-
-      this.LoadFormToUpdate(this.taskData);
     }
   }
-
 
   async LoadFormToUpdate(taskData: TaskUpdate) {
     try {
       this.taskForm.patchValue({
         title: taskData.title,
-        category: taskData.category.name,
+        category:taskData.category.name,
         priority: taskData.priority.toString(),
         description: taskData.description,
       });
     } catch (error) {
+      console.error("Error:", error);
     }
   }
 
   isValidField(field: string): boolean {
     return this.validatorService.isValidField(this.taskForm, field);
   }
-
 
   isValidName(field: string): string | null {
     const errorMessage = this.validatorService.getFieldError(this.taskForm, field);
@@ -96,8 +92,6 @@ export class TaskFormComponent implements OnInit, OnChanges {
   async getBackFormData() {
     this.taskForm.markAllAsTouched();
     if (this.taskForm.valid) {
-
-      
       let formValues = this.taskForm.value;
       const categoryId = this.getCategoryIdByName(formValues.category!);
       
@@ -106,10 +100,8 @@ export class TaskFormComponent implements OnInit, OnChanges {
       this.taskData.description = formValues.description!;
       
       if (categoryId !== undefined) {
-        this.taskData.categoryId = categoryId
-
-          this.formSubmit.emit(this.taskData);
-        
+        this.taskData.categoryId = categoryId;
+        this.formSubmit.emit(this.taskData);
       }
     }
   }
@@ -119,23 +111,22 @@ export class TaskFormComponent implements OnInit, OnChanges {
       const resultCategoryList = await this.taskService.getCategories();
       if (resultCategoryList.ok) {
         this.categoryList = resultCategoryList.data;
+
       } else {
         const errorMessage = resultCategoryList.error;
+        console.error(errorMessage);
       }
     } catch (error) {
       console.error("Error:", error);
     }
   }
 
-
   getCategoryIdByName(categoryName: string): number | undefined {
     const category = this.categoryList.find(category => category.name === categoryName);
     return category ? category.categoryId : undefined;
   }
 
-
   redirectToHomePage(): void {
     this.router.navigate(['/home']);
   }
-
 }

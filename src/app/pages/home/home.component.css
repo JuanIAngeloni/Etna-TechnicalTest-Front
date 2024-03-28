@@ -4,15 +4,20 @@
     align-items: center;
     padding: 20px;
 }
-.container-header{
-    width: 30%;
+
+.container-header {
+    width: 85%;
     margin-bottom: 25px;
+
 }
+
 .header {
     width: 100%;
     display: flex;
-    justify-content: space-between;
+    gap: 190px;
 }
+
+
 
 .header h1 {
     margin-bottom: 0px !important;
@@ -30,25 +35,37 @@
     color: #5230ff;
     cursor: pointer;
 }
+.custom-checkbox .mat-checkbox-background {
+    background-color: #5230ff; /* Cambiar el color del checkbox */
+  }
+.search {
+    width: 300px;
+}
 
 .filters {
     width: 100%;
-
 }
 
+.filter-subtitle {
+    font-weight: bold;
+}
 
-.delete-button, .confirm-button {
+.delete-button,
+.confirm-button {
     color: #828282;
-    background-color: #f7f5ff; 
+    background-color: #f7f5ff;
 }
 
-.delete-button.checked, .confirm-button.checked {
+.delete-button.checked,
+.confirm-button.checked {
     color: white;
-    background-color: #5230ff; 
+    background-color: #5230ff;
 }
+
 .delete-button {
-    margin-right: 5px; 
+    margin-right: 5px;
 }
+
 .confirm-button {
     margin-left: 5px;
 }
@@ -82,18 +99,24 @@
     font-weight: bold;
 }
 
+.checkbox-container {
+    margin-left: auto;
+    color: #5230ff;
+}
+
+
+
 .mat-card-subtitle {
     display: flex;
     align-items: center !important;
     align-content: center !important;
     font-size: 14px;
-    color: #666;
     vertical-align: middle;
 }
 
 .mat-card-subtitle mat-icon {
     margin-right: 8px;
-    /* Ajusta el margen entre el icono y el texto según tus necesidades */
+
 }
 
 .mat-card-content {
@@ -101,30 +124,63 @@
     color: #333;
 }
 
+.card-icons {
+    color: black;
+    transform: scale();
+
+}
+
 .mat-card-actions {
     justify-content: space-around;
 }
 
+.action-icons {
+    color: #5230ff;
+}
+
+.pagination {
+    padding: 0;
+
+}
+
 @media screen and (max-width: 800px) {
-    .container-header{
-        width: 50%;
+    .container-header {
+        width: 90%;
         margin-bottom: 15px;
     }
+
+    .searchfilter {
+        width: 40%;
+    }
 }
+
 @media screen and (max-width: 600px) {
-    .container-header{
+    .container-header {
         width: 70%;
     }
-}
-@media screen and (max-width: 500px) {
-    .container-header{
-        width: 85%;
+
+    .searchfilter {
+        width: 60%;
     }
 }
+
+@media screen and (max-width: 500px) {
+    .container-header {
+        width: 85%;
+    }
+
+    .searchfilter {
+        width: 100%;
+    }
+
+    .header {
+        gap: 0%;
+    }
+
+}
+
 @media screen and (max-width: 320px) {
-    .container-header{
+    .container-header {
         width: 100%;
     }
 }
-
-

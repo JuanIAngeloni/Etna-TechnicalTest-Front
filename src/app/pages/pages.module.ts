@@ -20,7 +20,7 @@ import {MatDialogModule} from '@angular/material/dialog';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatRadioModule} from '@angular/material/radio';
-
+import {NgxPaginationModule} from 'ngx-pagination';
 
 @NgModule({
   declarations: [
@@ -48,8 +48,8 @@ import {MatRadioModule} from '@angular/material/radio';
     MatToolbarModule,
     MatCheckboxModule,
     MatRadioModule,
-    SharedModule
-    
+    SharedModule,
+    NgxPaginationModule
   ],
   exports:[RegisterComponent]
 })

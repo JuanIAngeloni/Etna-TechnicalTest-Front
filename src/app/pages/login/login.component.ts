@@ -63,7 +63,7 @@ export class LoginComponent implements OnInit {
           let token = postLoginUser.data.token ;
           this.authService.setUserInLocalStorage(token);
           this.authService.isAuthenticated$();
-
+          this.loginForm.reset();
           this.router.navigate(['/task'])
 
         }else{

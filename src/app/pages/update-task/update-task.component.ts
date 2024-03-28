@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { TASKEMPTY, Task } from 'src/app/core/models/task';
 import { TaskFilter } from 'src/app/core/models/taskFilter';
 import { TASKUPDATEEMPTY, TaskUpdate } from 'src/app/core/models/taskUpdate';
 import { TaskService } from 'src/app/core/services/task.service';
@@ -16,11 +17,7 @@ export class UpdateTaskComponent implements OnInit {
   @ViewChild(TaskFormComponent) 
   taskFormComponent!: TaskFormComponent ;
 
-
-  ngAfterViewInit() {
-  }  
-
-  taskData: TaskUpdate = TASKUPDATEEMPTY;
+  taskData: Task = TASKEMPTY;
   taskIdToUpdate: number;
   routeSubscription: Subscription;
   taskFilter : TaskFilter = new TaskFilter;
@@ -37,8 +34,6 @@ export class UpdateTaskComponent implements OnInit {
     this.LoadTaskByIdToUpdate();
   }
 
-
-
   async LoadTaskByIdToUpdate() {
     try {
       this.routeSubscription = this.urlRoute.params.subscribe(params => {
@@ -49,8 +44,8 @@ export class UpdateTaskComponent implements OnInit {
       this.taskFilter.taskId = this.taskIdToUpdate;
       const getTaskId = await this.taskService.getTaskList(this.taskFilter);
       if (getTaskId.ok) {
-        
         this.taskData = getTaskId.data[0];
+        
       }
     }
     catch (error) {
@@ -58,9 +53,8 @@ export class UpdateTaskComponent implements OnInit {
     }
   }
 
-  async onFormSubmit(taskData: TaskUpdate) { 
+  async onFormSubmit(taskData: Task) { 
     try {
-      console.log(213,taskData); 
       const updateTask = await this.taskService.putTask(taskData);
       if (updateTask.ok) {
         this.taskData = updateTask.data;
@@ -72,7 +66,7 @@ export class UpdateTaskComponent implements OnInit {
   }
 
   saveTask() {
-  this.taskFormComponent.getBackFormData();
+    this.taskFormComponent.getBackFormData();
   }
 
   redirectToHomePage(): void {

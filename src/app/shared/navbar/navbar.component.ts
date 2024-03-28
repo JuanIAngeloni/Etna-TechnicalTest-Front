@@ -4,6 +4,8 @@ import { DialogLogoutComponent } from '../dialog-logout/dialog-logout.component'
 import { AuthService } from 'src/app/core/services/auth-service';
 import { UserLogged } from 'src/app/core/models/userLogged';
 import { NavigationEnd, Router } from '@angular/router';
+import { Subscription } from 'rxjs';
+import { TaskService } from 'src/app/core/services/task.service';
 
 @Component({
   selector: 'app-navbar',
@@ -12,21 +14,23 @@ import { NavigationEnd, Router } from '@angular/router';
 })
 export class NavbarComponent {
 
-  userLogged : UserLogged = this.authService.userLogged;
+
+  userLogged: UserLogged = this.authService.userLogged;
 
   currentRoute: string = '';
 
-
   show: boolean = false;
 
+  incompleteTaskCounter: number = 0;
+  private taskListSubscription?: Subscription;
 
 
-  /**
-   * Constructor to initialize the NavbarComponent.
-   * @param authService - The authentication service.
-   * @param router - The router service.
-   */
-  constructor(private authService : AuthService, private router: Router,   public dialog: MatDialog){
+  constructor(
+    private authService: AuthService,
+    private router: Router,
+    public dialog: MatDialog,
+    private taskService: TaskService
+  ) {
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
 
@@ -36,12 +40,15 @@ export class NavbarComponent {
   }
 
   ngOnInit(): void {
-    console.log("oninit");
     this.authService.isAuthenticated$().subscribe(
       (isAuthenticated) => {
         this.show = isAuthenticated;
       });
-  }  
+
+    this.taskListSubscription = this.taskService.taskList$.subscribe(taskList => {
+      this.incompleteTaskCounter = taskList.filter(task => !task.isCompleted).length;
+    });
+  }
 
 
   openDialog(enterAnimationDuration: string, exitAnimationDuration: string): void {
@@ -50,5 +57,9 @@ export class NavbarComponent {
       enterAnimationDuration,
       exitAnimationDuration,
     });
+  }
+
+  redirectToTaskList() {
+    this.router.navigate([`task`])
   }
 }

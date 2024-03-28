@@ -12,7 +12,6 @@ export class ValidatorService {
 
   public isValidField(form: FormGroup, field: string): boolean {
     const control = form.controls[field];
-    // console.log(control.getError)
     if (control && control.errors && control.touched) {
       return true;
     } else {
@@ -41,10 +40,8 @@ export class ValidatorService {
 
 
   getFieldError(form: FormGroup, field: string): string | null {
-    // console.log(7,form.controls[field])
     if (!form.controls[field]) return null;
     const errors = form.controls[field].errors || {};
-    // console.log(3, errors)
     for (const key of Object.keys(errors)) {
       switch (key) {
         case 'required':

@@ -19,6 +19,7 @@ export class DialogDeleteTaskComponent {
     try {
       const deleteTask = await this.taskService.deleteTask(this.data.idTask);
       if (deleteTask.ok) {
+        this.dialogRef.close(true);
       }
     } catch (error) {
       console.log(error);

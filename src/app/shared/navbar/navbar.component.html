@@ -6,10 +6,10 @@
 
         <span class="spacer"></span>
 
-        <button mat-icon-button aria-label="calendar with task icon">
-            <mat-icon matBadge="15" matBadgePosition="above after" matBadgeSize="small" matBadgeOverlap="false"
+        <button mat-icon-button aria-label="calendar with task icon" (click)="redirectToTaskList()">
+            <mat-icon matBadge="{{incompleteTaskCounter}}" matBadgePosition="above after" matBadgeSize="small" matBadgeOverlap="false"
                 matBadgeColor="warn" class="badge">
-                <mat-icon class="calendar-icon-button">edit_calendar </mat-icon> </mat-icon>
+                <mat-icon class="calendar-icon-button" >edit_calendar </mat-icon> </mat-icon>
         </button>
 
         <span class="button-space"></span>
@@ -17,5 +17,5 @@
             <img src="../../../assets/profile.png" alt="User profile picture" class="profile-icon">
         </button>
     </mat-toolbar>
-    <span class="navbar-span"></span> <!-- Nuevo elemento span -->
+    <span class="navbar-span"></span>
 </header>
