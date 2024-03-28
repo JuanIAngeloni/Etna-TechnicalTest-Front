@@ -47,12 +47,13 @@ export class HomeComponent implements OnInit{
 
 
 
-redirectEditPage() {
-  this.router.navigate([`tarea/edit/${this.idTaskToUpdate}`])
+redirectEditPage(idTask: number) {
+  console
+  this.router.navigate([`task/edit/${idTask}`])
 
 }
 redirectCreatePage(){
-  this.router.navigate(['tarea/create']);
+  this.router.navigate(['task/create']);
 }
 
 }

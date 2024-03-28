@@ -27,15 +27,17 @@ export class NavbarComponent {
    * @param router - The router service.
    */
   constructor(private authService : AuthService, private router: Router,   public dialog: MatDialog){
-
+    console.log(1,this.currentRoute,"  |  ", this.router)
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
+
         this.currentRoute = this.router.url;
       }
     });
   }
 
   ngOnInit(): void {
+    console.log("oninit");
     this.authService.isAuthenticated$().subscribe(
       (isAuthenticated) => {
         this.show = isAuthenticated;

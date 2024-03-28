@@ -3,6 +3,6 @@
         {{userLogged.email}}
     </div>
     <div mat-dialog-actions class="centered-button">
-        <button mat-raised-button class="custom-color-button" mat-dialog-close cdkFocusInitial>Cerrar sesión</button>
+        <button mat-raised-button class="custom-color-button" mat-dialog-close (click)="logoutUser()" cdkFocusInitial>Cerrar sesión</button>
     </div>
 </div>

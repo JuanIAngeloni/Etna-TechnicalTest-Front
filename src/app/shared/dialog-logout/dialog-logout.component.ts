@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
+import { Router } from '@angular/router';
 import { USERLOGGEDEMPTY, UserLogged } from 'src/app/core/models/userLogged';
 import { AuthService } from 'src/app/core/services/auth-service';
 
@@ -9,6 +10,13 @@ import { AuthService } from 'src/app/core/services/auth-service';
   styleUrls: ['./dialog-logout.component.css']
 })
 export class DialogLogoutComponent {
+logoutUser() {
+  localStorage.removeItem("userToken");
+  this.authService.userLogged = USERLOGGEDEMPTY;
+  this.authService.isAuthenticated$();
+  this.router.navigate([`/login`]);
+
+}
 
 
   userLogged: UserLogged = USERLOGGEDEMPTY;
@@ -16,8 +24,9 @@ export class DialogLogoutComponent {
 
   constructor(
     public dialogRef: MatDialogRef<DialogLogoutComponent>,
-    public authService: AuthService) {
-    this.userLogged = this.authService.userLogged
+    public authService: AuthService,
+    private router : Router) {
+    this.userLogged = this.authService.userLogged;
   }
 
 }
