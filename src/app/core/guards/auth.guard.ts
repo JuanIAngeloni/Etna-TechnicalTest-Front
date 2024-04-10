@@ -1,18 +1,14 @@
 import { Injectable } from '@angular/core';
-import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree, Router } from '@angular/router';
-import { Observable } from 'rxjs';
+import { Router } from '@angular/router';
 import { AuthService } from '../services/auth-service';
+import { USERLOGGEDEMPTY } from '../models/userLogged';
 
 @Injectable({
   providedIn: 'root'
 })
-export class PermissionsGuard implements CanActivate {
-
-  constructor(private authService: AuthService, private router: Router) {}
-
-  canActivate(
-    route: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
+export class PermissionsGuard {
+  constructor(private authService: AuthService, private router: Router) { }
+  canActivate(){
     return this.authService.guardValidation().then(isValid => {
       if (isValid) {
         return true;
@@ -26,19 +22,15 @@ export class PermissionsGuard implements CanActivate {
 @Injectable({
   providedIn: 'root'
 })
-export class LoginGuard implements CanActivate {
-
-  constructor(private authService: AuthService, private router: Router) {}
-
-  canActivate(
-    route: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-    return this.authService.guardValidation().then(isValid => {
-      if (!isValid) {
-        return true;
-      } else {
-        return this.router.parseUrl('/login');
-      }
-    });
+export class ClearLoginSession {
+  constructor(private authService: AuthService, private router: Router) { }
+  
+  canActivate(): boolean {
+    this.authService.userLogged = USERLOGGEDEMPTY;
+    this.authService.setUserInLocalStorage("");
+    this.authService.isAuthenticated$().subscribe();
+    return true;
   }
 }
+
+

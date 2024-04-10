@@ -14,9 +14,6 @@ export class DialogLogoutComponent {
   userLogged: UserLogged = USERLOGGEDEMPTY;
 
 logoutUser() {
-  localStorage.removeItem("userToken");
-  this.authService.userLogged = USERLOGGEDEMPTY;
-  this.authService.isAuthenticated$();
   this.router.navigate([`/login`]);
 }
 

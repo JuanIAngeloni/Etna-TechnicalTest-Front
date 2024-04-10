@@ -5,19 +5,19 @@ import { RegisterComponent } from './pages/register/register.component';
 import { NewTaskComponent } from './pages/new-task/new-task.component';
 import { HomeComponent } from './pages/home/home.component';
 import { UpdateTaskComponent } from './pages/update-task/update-task.component';
-import { PermissionsGuard } from './core/guards/auth.guard';
+import { ClearLoginSession, PermissionsGuard } from './core/guards/auth.guard';
 
 
 const routes: Routes = [
-  { path: 'login', component: LoginComponent },
-  { path: 'register', component: RegisterComponent },
-  { path:  'task', component: HomeComponent, canActivate:[PermissionsGuard] },
+  { path: 'login', component: LoginComponent, canActivate: [ClearLoginSession] },
+  { path: 'register', component: RegisterComponent, canActivate: [ClearLoginSession] },
+  { path: 'task', component: HomeComponent, canActivate: [PermissionsGuard] },
   {
     path: 'task',
-    canActivate:[PermissionsGuard],
+    canActivate: [PermissionsGuard],
     children: [
-      { path: 'edit/:id', component: UpdateTaskComponent, canActivate:[PermissionsGuard] },
-      { path: 'create', component: NewTaskComponent, canActivate:[PermissionsGuard] },
+      { path: 'edit/:id', component: UpdateTaskComponent, canActivate: [PermissionsGuard] },
+      { path: 'create', component: NewTaskComponent, canActivate: [PermissionsGuard] },
     ]
   },
   { path: '', redirectTo: 'login', pathMatch: 'full' },
