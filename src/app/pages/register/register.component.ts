@@ -74,7 +74,8 @@ export class RegisterComponent {
           this.redirectToLoginPage();
 
         } else {
-                  
+          this.errorMsg = postNewUser.data.error.error;
+          this.showErrorMsg = true;
         }
 
 

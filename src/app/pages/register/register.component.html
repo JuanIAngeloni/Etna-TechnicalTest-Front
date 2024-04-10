@@ -54,6 +54,11 @@
         <span *ngIf="isValidField('repeatPassword')" class="form-text text-danger">
             {{isValidName('repeatPassword')}}
         </span>
+
+        
+        <span *ngIf="showErrorMsg" class="form-text text-danger">
+            {{errorMsg}}
+        </span>
         
         <button mat-button type="submit"class="register-button">Crear usuario</button>
         

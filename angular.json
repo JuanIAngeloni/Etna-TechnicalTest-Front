@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "EtnaTechnicalTestFront": {
+    "TaskManagerFront": {
       "projectType": "application",
       "schematics": {},
       "root": "",
@@ -13,7 +13,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/etna-technical-test-front",
+            "outputPath": "dist/task-manager-front",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": [
@@ -61,10 +61,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "EtnaTechnicalTestFront:build:production"
+              "browserTarget": "TaskManagerFront:build:production"
             },
             "development": {
-              "browserTarget": "EtnaTechnicalTestFront:build:development"
+              "browserTarget": "TaskManagerFront:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -72,7 +72,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "EtnaTechnicalTestFront:build"
+            "browserTarget": "TaskManagerFront:build"
           }
         },
         "test": {

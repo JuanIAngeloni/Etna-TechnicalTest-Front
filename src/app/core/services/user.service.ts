@@ -19,6 +19,7 @@ export class UserService {
       let response = await this.http.post(url, newUser).toPromise();
       return { data: response, ok: true, errors: [] };
     } catch (error) {
+      console.log(error)
         return { data: { error: error }, ok: false, errors: [error] };
       
     }
