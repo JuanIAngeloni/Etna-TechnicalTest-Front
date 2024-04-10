@@ -20,9 +20,7 @@ export class LoginComponent implements OnInit {
   userLog: UserLogin = USERLOGINEMPTY;
 
 
-  ngOnInit(): void {
-
-  }
+  ngOnInit(): void {}
   constructor(
     private fb: FormBuilder,
     private router: Router,
@@ -37,14 +35,12 @@ export class LoginComponent implements OnInit {
     });
 
     this.loadFormWithRegisterData();
-
   }
 
 
   isValidField(field: string): boolean {
     return this.validatorServic.isValidField(this.loginForm, field);
   }
-
 
   isValidName(field: string): string | null {
     const errorMessage = this.validatorServic.getFieldError(this.loginForm, field);
@@ -63,9 +59,8 @@ export class LoginComponent implements OnInit {
           let token = postLoginUser.data.token ;
           this.authService.setUserInLocalStorage(token);
           this.authService.isAuthenticated$();
-          this.loginForm.reset();
           this.router.navigate(['/task'])
-
+          this.loginForm.reset();
         }else{
           if(postLoginUser.data.error.status == 401)
           this.showErrorMsg = true;
