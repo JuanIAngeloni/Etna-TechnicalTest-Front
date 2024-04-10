@@ -26,7 +26,7 @@ export class AuthService {
   }
 
   isAuthenticated$(): Observable<boolean> {
-    if (localStorage.getItem("userToken") !== 'undefined' && localStorage.getItem("userToken") !== null) {
+    if (localStorage.getItem("userToken") !== 'undefined' && localStorage.getItem("userToken") !== null && localStorage.getItem("userToken") !== "") {
       const userToken: string = localStorage.getItem("userToken")!;
       const decoded: any = jwtDecode(userToken);
       const { name, lastName, email, userId, role } = decoded;
@@ -56,8 +56,8 @@ export class AuthService {
         }),
         params: new HttpParams().set('token', token)
       };
-      const response = await this.http.get<boolean>('https://localhost:7120/tokenValidated', requestOptions).toPromise();
-
+      const response = await this.http.get<boolean>(this.apiURL+'/tokenValidated', requestOptions).toPromise();
+      console.log(response)
       if (typeof response === 'boolean') {
         return response;
       } else {

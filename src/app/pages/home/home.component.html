@@ -22,61 +22,61 @@
     </div>
   </div>
   <div class="card-list">
-    <mat-card class="example-card" *ngFor="let task of taskList| paginate: { itemsPerPage: 3, currentPage: page, }">
+    <mat-card class="example-card" [class.expanded]="isDescriptionExpanded(task.taskId)"
+      (click)="toggleDescription(task.taskId)"
+      *ngFor="let task of taskList| paginate: { itemsPerPage: 9, currentPage: page, }" id="{{task.taskId}}">
       <mat-card-header>
-
-        <mat-card-subtitle>
-          <mat-icon class="card-icons">edit_calendar</mat-icon>
-          <span class="subtitle-text">{{ task.updateDate }} (editado)</span>
-        </mat-card-subtitle>
-
         <div class="checkbox-container">
-          <mat-checkbox  color="primary"
-          class="custom-checkbox" 
-          [checked]="task.isCompleted"
+          <mat-checkbox color="primary" class="custom-checkbox" [checked]="task.isCompleted"
             (change)="setComplete($event.checked, task)">
           </mat-checkbox>
         </div>
 
         <mat-card-subtitle>
-          <mat-icon class="card-icons">calendar_today</mat-icon>
-          <span class="subtitle-text">{{ task.createDate }} (creado)</span>
-        </mat-card-subtitle>
+          <div class="card-data">
+            <mat-icon class="card-icons">edit_calendar</mat-icon>
+            <span>{{ task.updateDate }} (editado)</span>
+          </div>
+          <div class="card-data">
+            <mat-icon class="card-icons">calendar_today</mat-icon>
+            <span>{{ task.createDate }} (creado)</span>
+          </div>
+          <div class="card-data">
+            <mat-icon class="card-icons">gpp_maybe</mat-icon>
+            <span>Prioridad: {{ task.priority }}</span>
+          </div>
+          <div class="card-data">
+            <mat-icon class="card-icons">checklist_rtl</mat-icon>
+            <span>Categoría: {{ task.category.name }}</span>
+          </div>
 
-        <mat-card-subtitle>
-          <mat-icon class="card-icons">gpp_maybe</mat-icon>
-          <span class="subtitle-text">Prioridad: {{ task.priority }}</span>
         </mat-card-subtitle>
-
-        <mat-card-subtitle>
-          <mat-icon class="card-icons">checklist_rtl</mat-icon>
-          <span class="subtitle-text">Categoría: {{ task.category.name }}</span>
-        </mat-card-subtitle>
-
       </mat-card-header>
-      <mat-card-title>
-        <div class="title-content">
-          {{task.title}}
-        </div>
+
+      <mat-card-title class="card-title">
+        {{task.title}}
       </mat-card-title>
-      <mat-card-header>
-        <mat-card-subtitle>
-          <p>
-            {{task.description}}
-          </p>
-        </mat-card-subtitle>
-      </mat-card-header>
+
+      <mat-card-content>
+
+        <p class="description" [class.expanded]="isDescriptionExpanded(task.taskId)">
+          {{ task.description }}
+        </p>
+
+      </mat-card-content>
       <mat-card-actions>
-        <button mat-icon-button color="#5230ff" aria-label="Login page" (click)="redirectEditPage(task.taskId)">
-          <mat-icon class="action-icons">edit</mat-icon>
-        </button>
-        <button mat-icon-button color="#5230ff" class="action-icons" aria-label="Login page"
-          (click)="deleteDialogComponent(task.taskId,'0ms', '0ms')">
-          <mat-icon>delete</mat-icon>
-        </button>
+        <div class="card-footer">
+          <button mat-icon-button color="#5230ff" aria-label="Login page" (click)="redirectEditPage(task.taskId)">
+            <mat-icon class="action-icons">edit</mat-icon>
+          </button>
+          <button mat-icon-button color="#5230ff" class="action-icons" aria-label="Login page"
+            (click)="deleteDialogComponent(task.taskId,'0ms', '0ms')">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </div>
       </mat-card-actions>
     </mat-card>
   </div>
 
-  <pagination-controls class="pagination" (pageChange)="page = $event" previousLabel="Anterior"
+  <pagination-controls  *ngIf="taskList.length > 0" class="pagination" (pageChange)="page = $event" previousLabel="Anterior"
     nextLabel="Siguiente"></pagination-controls>

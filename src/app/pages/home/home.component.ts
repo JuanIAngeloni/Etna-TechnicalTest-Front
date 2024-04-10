@@ -3,10 +3,8 @@ import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { TaskFilter } from 'src/app/core/models/taskFilter';
 import { TaskUpdate } from 'src/app/core/models/taskUpdate';
-import { AuthService } from 'src/app/core/services/auth-service';
 import { TaskService } from 'src/app/core/services/task.service';
 import { DialogDeleteTaskComponent } from 'src/app/pages/home/dialog-delete-task/dialog-delete-task.component';
-
 
 @Component({
   selector: 'app-home',
@@ -15,19 +13,16 @@ import { DialogDeleteTaskComponent } from 'src/app/pages/home/dialog-delete-task
 })
 export class HomeComponent implements OnInit {
 
-
   idTaskToUpdate: number = 0;
   taskList: TaskUpdate[] = [];
   formattedCreateDate: string = '';
   formattedUpdateDate: string = '';
   checkboxState: boolean = false;
-
-
   filtersToGetTaskList: TaskFilter = new TaskFilter;
   searchText: string = '';
-
   page!: number;
 
+  expandedTasks: Map<number, boolean> = new Map<number, boolean>();
 
   constructor(
     private router: Router,
@@ -66,12 +61,12 @@ export class HomeComponent implements OnInit {
     this.filtersToGetTaskList.isCompleted = option;
     this.loadTaskList();
   }
+
   searchTextChanged() {
     this.filtersToGetTaskList.text = this.searchText;
-    this.loadTaskList()
-
-
+    this.loadTaskList();
   }
+
   deleteDialogComponent(idTask: number, enterAnimationDuration: string, exitAnimationDuration: string): void {
     const dialogRef = this.dialog.open(DialogDeleteTaskComponent, {
       width: '300px',
@@ -80,13 +75,10 @@ export class HomeComponent implements OnInit {
       data: { idTask }
     });
     dialogRef.afterClosed().subscribe(result => {
-
       this.loadTaskList();
       if (result) { }
     });
   }
-
-
 
   async setComplete(completed: boolean, taskToComplete: TaskUpdate) {
     try {
@@ -116,8 +108,23 @@ export class HomeComponent implements OnInit {
   redirectCreatePage() {
     this.router.navigate([`task/create`])
   }
+
   redirectEditPage(idTask: number) {
     this.router.navigate([`task/edit/${idTask}`])
   }
 
+  toggleDescription(taskId: number) {
+    if (!this.expandedTasks.has(taskId)) {
+      this.expandedTasks.set(taskId, false);
+    }
+    const currentValue = this.expandedTasks.get(taskId);
+    if (currentValue !== undefined) {
+      this.expandedTasks.set(taskId, !currentValue);
+    }
+  }
+  
+
+isDescriptionExpanded(taskId: number): boolean {
+  return this.expandedTasks.get(taskId) ?? false;
+}
 }
