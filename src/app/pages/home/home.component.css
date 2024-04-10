@@ -130,6 +130,7 @@
 }
 
 .description {
+    min-height: 49px;
     max-height: 50px;
     overflow: hidden;
 }
