@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { environment } from 'src/environments/environment.development';
+import { environment } from 'src/environments/environment';
 import { Task } from '../models/task';
 import { TaskPost } from '../models/taskPost';
 import { TaskFilter } from '../models/taskFilter';
