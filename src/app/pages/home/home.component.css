@@ -6,14 +6,16 @@
 }
 
 .container-header {
-    width: 80%;
+    margin: 0 auto; /* Centra horizontalmente */
     margin-bottom: 25px;
+    
 }
 
 .header {
     width: 100%;
     display: flex;
     gap: 190px;
+    
 }
 
 .header h1 {
@@ -37,10 +39,6 @@
 
 .search {
     width: 300px;
-}
-
-.filters {
-    width: 100%;
 }
 
 .filter-subtitle {
@@ -72,18 +70,19 @@
     grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
     gap: 30px;
     justify-items: center;
+    align-items: flex-start; /* Alinea las tarjetas en la parte superior */
     width: 90%;
     max-width: 1200px;
 }
 
-.example-card {
+
+.card-general {
     width: 100%;
     max-width: 400px;
-    height: 100%;
     overflow: hidden;
     display: flex;
     flex-direction: column;
-    box-shadow: 0px 6px 10px rgb(0, 0, 0,0.2);
+    box-shadow: 0px 6px 10px rgb(0, 0, 0, 0.2);
 
 }
 
@@ -124,23 +123,9 @@
     transform: scale(0.8);
 }
 
-.card-title{
+.card-title {
     padding-left: 15px;
     padding-bottom: 10px;
-}
-
-.description {
-    min-height: 49px;
-    max-height: 50px;
-    overflow: hidden;
-}
-
-.expanded .description {
-    max-height: none;
-}
-
-.example-card:not(.expanded) {
-    max-height: 275px;
 }
 
 .mat-card-actions {
@@ -148,8 +133,18 @@
     margin-top: auto;
 
 }
+
+.card-title-description {
+    min-height: 87px;
+    max-height: 88px;
+}
+
+.card-title-description.selected {
+    max-height: none;
+}
+
 .mat-mdc-card-actions {
-    background-color:rgb(245, 245, 245);
+    background-color: rgb(245, 245, 245);
     height: 40px;
 }
 
@@ -176,9 +171,11 @@
     .search {
         width: 60%;
     }
+
     .header {
         gap: 40%;
     }
+
     .card-list {
         grid-template-columns: repeat(1, 1fr);
     }
@@ -192,6 +189,7 @@
     .search {
         width: 100%;
     }
+
     .header {
         gap: 50%;
     }

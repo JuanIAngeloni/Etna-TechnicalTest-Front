@@ -28,7 +28,7 @@ export class TaskService {
     try {
       const requestOptions = { headers: new HttpHeaders(environment.newHeaders) };
       let url = `${this.apiURL}/task`;
-      
+      console.log(url);
       const params: any = {};
       if (taskFilter.taskId) {
         params.taskId = taskFilter.taskId;

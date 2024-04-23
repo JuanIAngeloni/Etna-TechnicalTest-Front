@@ -22,13 +22,11 @@
     </div>
   </div>
   <div class="card-list">
-    <mat-card class="example-card" [class.expanded]="isDescriptionExpanded(task.taskId)"
-      (click)="toggleDescription(task.taskId)"
-      *ngFor="let task of taskList| paginate: { itemsPerPage: 9, currentPage: page, }" id="{{task.taskId}}">
+    <mat-card class="card-general" (click)="toggleDescription(index)"
+    *ngFor="let task of taskList| paginate: { itemsPerPage: 9, currentPage: page }; let index = index ">
       <mat-card-header>
         <div class="checkbox-container">
-          <mat-checkbox color="primary" class="custom-checkbox" [checked]="task.isCompleted"
-            (change)="setComplete($event.checked, task)">
+          <mat-checkbox color="primary" class="custom-checkbox" (change)="setComplete($event.checked, task)">
           </mat-checkbox>
         </div>
 
@@ -52,18 +50,13 @@
 
         </mat-card-subtitle>
       </mat-card-header>
-
-      <mat-card-title class="card-title">
-        {{task.title}}
-      </mat-card-title>
-
-      <mat-card-content>
-
-        <p class="description" [class.expanded]="isDescriptionExpanded(task.taskId)">
-          {{ task.description }}
-        </p>
-
-      </mat-card-content>
+      <div class="card-title-description" [ngClass]="{'selected': selectedTaskIndex === index}">
+        <mat-card-title class="card-title">{{task.title}}</mat-card-title>
+        <mat-card-content>
+          <p class="card-description">{{ task.description }}</p>
+        </mat-card-content>
+      </div>
+      
       <mat-card-actions>
         <div class="card-footer">
           <button mat-icon-button color="#5230ff" aria-label="Login page" (click)="redirectEditPage(task.taskId)">
@@ -78,5 +71,5 @@
     </mat-card>
   </div>
 
-  <pagination-controls  *ngIf="taskList.length > 0" class="pagination" (pageChange)="page = $event" previousLabel="Anterior"
-    nextLabel="Siguiente"></pagination-controls>
+  <pagination-controls *ngIf="taskList.length > 0" class="pagination" (pageChange)="page = $event"
+    previousLabel="Anterior" nextLabel="Siguiente"></pagination-controls>

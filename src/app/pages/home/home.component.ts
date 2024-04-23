@@ -21,6 +21,7 @@ export class HomeComponent implements OnInit {
   filtersToGetTaskList: TaskFilter = new TaskFilter;
   searchText: string = '';
   page!: number;
+  selectedTaskIndex: number = -1; // Inicialmente no hay ninguna tarjeta seleccionada
 
   expandedTasks: Map<number, boolean> = new Map<number, boolean>();
 
@@ -113,18 +114,13 @@ export class HomeComponent implements OnInit {
     this.router.navigate([`task/edit/${idTask}`])
   }
 
-  toggleDescription(taskId: number) {
-    if (!this.expandedTasks.has(taskId)) {
-      this.expandedTasks.set(taskId, false);
-    }
-    const currentValue = this.expandedTasks.get(taskId);
-    if (currentValue !== undefined) {
-      this.expandedTasks.set(taskId, !currentValue);
-    }
+  toggleDescription(index: number) {
+    const currentValue = this.expandedTasks.get(index) ?? false;
+    this.expandedTasks.set(index, !currentValue);
+    this.selectedTaskIndex = index; 
   }
   
-
-isDescriptionExpanded(taskId: number): boolean {
-  return this.expandedTasks.get(taskId) ?? false;
-}
+  isDescriptionExpanded(index: number): boolean {
+    return this.expandedTasks.get(index) ?? false;
+  }
 }
